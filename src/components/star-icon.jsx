@@ -1,4 +1,4 @@
-export function StarIcon() {
+export default function StarIcon() {
   return (
     <svg
       fill="none"
