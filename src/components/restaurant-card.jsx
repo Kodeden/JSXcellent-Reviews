@@ -1,18 +1,19 @@
 import PropTypes from "prop-types";
-import StarIcon from "./star-icon";
 
 export default function RestaurantCard({ restaurant }) {
   return (
-    <section className="grid grid-cols-2 divide-x">
-      <header>
+    <section className="divide-y [&>*]:p-4">
+      <header className="space-y-8">
         <h2 className="text-2xl">{restaurant.restaurantName}</h2>
-        {[].fill(restaurant.stars).map((_, index) => (
-          <StarIcon key={index} />
-        ))}
+        <div>
+          {Array.from({ length: restaurant.stars }, (_, index) => (
+            <span key={index}>⭐</span>
+          ))}
+        </div>
       </header>
-      <ul>
+      <ul className="space-y-2 py-8">
         {restaurant.comments.map((comment) => (
-          <li key={comment.id}>{comment.text}</li>
+          <li key={comment.id}>💬&nbsp;{comment.text}</li>
         ))}
       </ul>
     </section>

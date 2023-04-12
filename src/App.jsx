@@ -13,9 +13,11 @@ function App() {
 
   return (
     <>
-      <h1>Bill and Ted&apos;s Excellent Reviews</h1>
+      <h1 className="my-4 text-center text-3xl">
+        Bill and Ted&apos;s Excellent Reviews
+      </h1>
 
-      <main>
+      <main className="space-y-4 text-center">
         {restaurants?.map((restaurant) => (
           <RestaurantCard key={restaurant.id} restaurant={restaurant} />
         ))}
