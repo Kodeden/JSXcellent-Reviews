@@ -1,15 +1,8 @@
-import { useEffect, useState } from "react";
-import apiService from "./api-service";
 import RestaurantCard from "./components/restaurant-card";
+import useRestaurants from "./hooks/use-restaurants";
 
 function App() {
-  const [restaurants, setRestaurants] = useState([]);
-
-  useEffect(() => {
-    apiService.index().then((json) => {
-      setRestaurants(json.restaurants);
-    });
-  }, []);
+  const restaurants = useRestaurants();
 
   return (
     <>
