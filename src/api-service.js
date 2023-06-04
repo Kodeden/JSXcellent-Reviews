@@ -1,5 +1,6 @@
-const BASE_URL = "http://localhost:3001/restaurants";
 import ky from "ky";
+
+const BASE_URL = "http://localhost:3001/restaurants";
 
 export default {
   index() {
