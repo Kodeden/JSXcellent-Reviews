@@ -1,73 +1,104 @@
-# React-Tailwind-Vitest
+# Bill and Ted's Excellent Reviews Application
 
-This is a template for a React project using TailwindCSS and Vite/Vitest. It also includes `require('@tailwindcss/forms')` in the `tailwind.config.js` file.
+Bill and Ted, from the 1989 hit movie, _Bill and Ted's Excellent Adventure,_ have started a new blog where they review their favorite restaurants. It has become tremendously popular and has landed them tons of commercials for various food chains. They figured that they could play off of their movie stardom to make a quick buck 🤑, which is why they called the blog _Bill and Ted's Excellent Reviews._
 
-## Scripts
+Due to their rapid growth, they thought it may be best to create their own application for their reviews. Unfortunately, they have little to no programming knowledge and thought that they could hack it with just Google and a couple of JavaScript textbooks they found. As you can imagine, this has not gone very excellent. They have managed to build some of the website, but they need help getting it across the finish line so they can continue their most excellent blogging.
 
-- `npm start` - Starts the development server.
-- `npm test` - Runs the test suite with [Vitest](https://vitest.dev/guide/cli.html#commands). React Testing Library is included along with `@testing-library/user-event`.
+This is where you come in!
 
-See [package.json](./package.json) for more scripts
+## Getting Started
 
-## Linting and Prettier
+Clone, do `npm i`, etc.
 
-This project uses `"standard"` linting with the recommended for `react` and `"prettier"`. This includes recommendations for **rules of hooks** and **a11y.**
+Create a `db.json` file in the root of the project. Paste in the following:
 
-It also includes warnings regarding [encapsulating React hooks](https://www.npmjs.com/package/eslint-plugin-use-encapsulation).
+```json
+{
+  "restaurants": {
+    "restaurants": [
+      {
+        "id": 1,
+        "restaurantName": "Millie's Macaroons",
+        "stars": 5,
+        "comments": [
+          {
+            "id": 1,
+            "text": "The macaroons are EXCELLENT! - Bill"
+          },
+          {
+            "id": 2,
+            "text": "Best macaroonies in town. - Ted"
+          },
+          {
+            "id": 3,
+            "text": "These macaroons take my tastebuds on a roller coaster of delight! - Bill"
+          }
+        ]
+      },
+      {
+        "id": 2,
+        "restaurantName": "Ben's Burgers",
+        "stars": 4,
+        "comments": [
+          {
+            "id": 4,
+            "text": "If we could only pick one word to describe the burgers, it would be....EXCELLENT. - Bill"
+          },
+          {
+            "id": 5,
+            "text": "My lettuce was a little soggy, but overall, the beef is DELICIOUS. - Ted"
+          }
+        ]
+      },
+      {
+        "id": 3,
+        "restaurantName": "Frank's Fritters",
+        "stars": 1,
+        "comments": [
+          {
+            "id": 6,
+            "text": "I don't know how they get away with calling this stuff food.....NOT excellent.. - Bill"
+          },
+          {
+            "id": 7,
+            "text": "Took one bite of my fritter and got out of there....disgusting! - Ted"
+          }
+        ]
+      },
+      {
+        "id": 4,
+        "restaurantName": "McDonald's",
+        "stars": 5,
+        "comments": [
+          {
+            "id": 8,
+            "text": "An absolute classic. Not a fan of the clown though. - Bill"
+          },
+          {
+            "id": 9,
+            "text": "Am I the only one who loves the fillet-o-fish? - Ted"
+          }
+        ]
+      }
+    ]
+  }
+}
+```
 
-It also lints `"testing-library"` and `"jest-dom"`.
+You'll need 1️⃣ terminal instance to run: `npm run json-server`. This will start up the JSON server on port 3001. See line 8 in the `package.json`.
 
-## VS Code Extensions and Settings
+See `api-service.js` for how to make requests to the JSON server.
 
-It also includes sensible VS Code defaults for [settings](./.vscode/settings.json) and [extensions](./.vscode/extensions.json).
+You'll want a `RestaurantCard` **component** at least. The following code will help:
 
-For the **settings**, we are doing things like:
+```jsx
+{
+  Array.from({ length: restaurant.stars }, (_, index) => (
+    <span key={index}>⭐</span>
+  ));
+}
+```
 
-- `"css.validate": false,` - TailwindCSS uses a lot of custom CSS syntax that VS Code doesn't understand, so we disable validation.
-- `"editor.formatOnSave": true,` - We want to format our code on save.
-- `"editor.defaultFormatter": "esbenp.prettier-vscode",` - We want to use Prettier to format our code.
-- `"editor.codeActionsOnSave": { "source.fixAll.eslint": true },` - We want to use ESLint to fix any linting errors on save.
+## Acceptance Criteria
 
-You should install the recommended extensions when you open the project in VS Code to get the full benefit of these settings.
-.
-
-## Architecture
-
-This project uses the following architecture heavily inspired by Tania Rascia's [React Architecture](https://www.taniarascia.com/react-architecture-directory-structure/).
-
-- `src/` - All of our source code.
-  - `components/` - All of our React components (`.jsx`). Global shared/reusable components, such as layout (wrappers, navigation), form components, buttons.
-  - `layouts/` - These are components that are meant to wrap other smaller components as part of a **route**. They will usually receive `children`, or might just be `header`, `footer`, `main`, etc.
-  - `hooks/` - All of our custom React hooks (`.js`).
-  - `routes/` - All of our React routes (`.jsx`). Each route is a 'page'.
-  - `services/` - All of our services (`.js`). Services are responsible for making API calls and returning data, for example (api.js). Or, maybe you have a service that is responsible for managing authentication (auth.js). Or, `localStorage` (storage.js). The stuff in here has consequences, that is, **side effects**.
-  - `tests/` - All of our tests (`.test.jsx`).
-  - `utils/` - All of our utility functions (`.js`). Utilities, helpers, constants, and the like. Unlike `services`, these are not responsible for side effects.
-
-### Absolute Imports
-
-This project uses absolute imports for all of our files. This means that we can import files from any directory using the `@` prefix instead of relative paths (e.g. `import Button from '@/components/Button'` instead of `import Button from '../../components/Button'`).
-
-This works for any of the directories in `src/` as listed above. If you need to add more, see [`vite.config.js`](./vite.config.js).
-
-### Dependency Graph
-
-`npm run dep-graph`
-
-This project includes `"dependency-cruiser"`. You can generate a dependency graph by running `npm run dep-graph`. This will be in SVG format by default. You can change this in the `package.json` file.
-
-**Note:** You **must** have [Graphviz](https://graphviz.org/download/) installed for this to work. You can install it using [Homebrew](https://brew.sh/) on macOS with `brew install graphviz`.
-
-Here's an example of what the dependency graph looks like:
-
-![Dependency Graph](./dependency-graph.svg)
-
-## License
-
-[MIT](./LICENSE)
-
-## Credits
-
-This project was bootstrapped with [create-vite](https://vitejs.dev/guide/).
-
-Like it? Give it a ⭐️ on [GitHub](https://github.com/manavm1990/vite-react-tailwind-vitest).
+- [ ] As a user, I want to be able to view all of the reviews on the homepage so that I can see what others are saying about the restaurants.
