@@ -8,7 +8,7 @@ export default function useFetch() {
     apiService.index().then((json) => {
       setData(json.restaurants);
     });
-  });
+  }, []);
 
   return data;
 }
